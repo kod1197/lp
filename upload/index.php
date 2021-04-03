@@ -79,9 +79,9 @@ require_once "../cnf/supermodal.php";
             </div>
 </header>
 <!-- ===== Welcome ===== -->
-<section class="main-content">
+<section class="section-about bgc-one" id="section-about">
     
-        <div class="container-fluid">
+        <div class="container">
 
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">

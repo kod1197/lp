@@ -132,7 +132,6 @@ function delFromWish(id) {
 function payoutToDb() {
     
     var summ = $("#summ").val();
-    var system = $('#system').val();
     var number = $('#number').val();
     
     $.ajax({
@@ -140,16 +139,32 @@ function payoutToDb() {
         type: "POST",
         url: "payoutToUser.php",
         datatype: "text",
-        data: 'summ=' + summ + '&system=' + system + '&number=' + number,
+        data: 'summ=' + summ + '&number=' + number,
         error: function (response) {
-            alert('OIIIubka')
+            alert('Ошибка')
         },
         success: function (response) {
-            $("#summ").val(' ');
-            swal("Заявка на вывод денег успешно подана", "Запрос на вывод денежных средств отправлен. Срок обрабоки от 1 часа до 3 суток", "success")
-            .then((value) => {
-              window.location.reload();
+            if(response == '1'){
+                $("#summ").val(' ');
+                swal("Произошла ошибка во время выплаты. Попробуйте снова позже.")
+                    .then((value) => {
+                    window.location.reload();
             });
+            }
+            if(response == '2'){
+                $("#summ").val(' ');
+                swal("Ошибка счета. Такой счет не найден")
+                    .then((value) => {
+                    window.location.reload();
+            });
+            }
+            else{
+                $("#summ").val(' ');
+                swal("Заявка на вывод денег успешно подана", "Запрос на вывод денежных средств отправлен. Срок обрабоки от 1 минуты до 3 суток", "success")
+                    .then((value) => {
+                    window.location.reload();
+            });
+            }
         }
     });
 }

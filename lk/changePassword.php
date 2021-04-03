@@ -4,15 +4,19 @@
 	require "../cnf/db.php";
 	$oldPwd = $_POST['oldPwd'];
 	$newPwd = $_POST['newPwd'];
-	$user = R::findOne('users', 'login = ?',array($_SESSION['login']));
+	$user = R::findOne('users', 'login = ?',array($_SESSION['kod1197']['login']));
 	if(password_verify($oldPwd, $user->password)){
-		$login = $_SESSION['login'];
+		$login = $_SESSION['kod1197']['login'];
 		$password =  password_hash($newPwd, PASSWORD_DEFAULT);
-		$query = "UPDATE users SET password='".$password."' where login='".$login."'";
-		R::exec($query);
+		$user->password = $password;
+		R::store($user);
+//		$query = "UPDATE users SET password = '$password' where login = $login";
+
 		echo 'Пароль успешно изменен';
 	}
 	else{
 		echo 'Вы ввели не верный старый пароль';
 	}
 ?>
+
+

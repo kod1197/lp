@@ -7,6 +7,7 @@ require_once "../cnf/db.php";
 require_once "../cnf/db_rb.php";
 
 //TODO: Понять что это и переделать
+$connect = mysqli_connect('localhost', 'root', '311297gamer', 'lp');
 $id = $_GET["id"];
 $query = "select * from img where id='$id'";
 $results = mysqli_query($connect, $query);
@@ -154,9 +155,11 @@ $row = $results->fetch_assoc();
             <?php endif; ?>
 
 
+
+
             <div id="image">
-                <img class="imgBlock" height="300" width="300" src="img/<?php echo $row["img"]; ?>"><br>
-                <a class="lightbox" href="img/<?php echo $row['img']; ?>">Увеличить картинку</a><br>
+                <img class="imgBlock" height="300" width="300" src="marked/<?php echo $row["img"]; ?>"><br>
+                <a class="lightbox" href="marked/<?php echo $row['img']; ?>">Увеличить картинку</a><br>
                 <hr>
                 <strong>Автор фотографии: </strong><?php echo $row['author']; ?>
                 <hr>

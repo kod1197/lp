@@ -148,20 +148,14 @@ if(!isset($_SESSION['kod1197']['id'])){
                             </div>
                             <div id="modal-body5" class="modal-body">
                                 <form method="post">
+                                    <label>Вывод осуществляется на кошелек платежной системы Payeer</label>
                                     <label for="summ">Желаемая для вывода сумма: </label>
                                     <label id="summ-error" for="summ"></label>
                                     <input onInput="balanceChecker()" id="summ" class="form-control" name="summ" type="number" placeholder="Сумма к выводу"><br>
-                                    <label for="payment_methods">Доступные к выводу платежные системы: </label>
-                                    <select id="system" name="system" class="form-control" id="payment_methods">
-                                        <option value="qiwi">Qiwi</option>
-                                        <option value="webmoney">Webmoney</option>
-                                        <option value="yandex">Yandex Money</option>
-                                    </select><br>
                                     <label for="number">Номер счета: </label>
                                     <input name="number" id="number" class="form-control" type="text" placeholder="Номер счета/кошелька для вывода"><br>
                                     <input type="button" class="btn btn-success" id="paybutton" onclick="payoutToDb()" value="Отправить запрос на вывод">
                                 </form>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть окно</button>

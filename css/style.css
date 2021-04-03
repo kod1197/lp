@@ -25,6 +25,7 @@ body {
     color: #555;
     line-height: 25px;
     text-align: center;
+    margin-bottom: 60px;
     overflow-x: hidden !important;
 }
 
@@ -692,9 +693,9 @@ footer {
 }
 
 @media (max-width: 800px){
-    footer{
-        position: relative;
-    }
+    /*footer{*/
+        /*position: relative;*/
+    /*}*/
 }
 
 @media (max-width: 991px){
@@ -771,6 +772,16 @@ footer {
     cursor:pointer;
 }
 
+/*== support ==*/
 
+.message-admin{
+    background-color: #8b00002e;
+    border-radius: 10px;
+    border: 1px solid black;
+}
 
-
+.message-default{
+    background-color: #337ab773;
+    border-radius: 10px;
+    border: 1px solid black;
+}

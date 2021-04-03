@@ -3,7 +3,7 @@
     echo'<li><a href="https://kod1197.ru/lp/index.php">Главная</a></li>';
 
     if(isset($_SESSION['kod1197']['login'])){
-    echo '<li><a style="cursor: default;">Здравствуйте, '.$_SESSION['kod1197']['login']. '</a></li>';
+    echo '<li><a style="cursor: default;">Здравствуте, '.$_SESSION['kod1197']['login']. '</a></li>';
     echo'    
     <li><a href="https://kod1197.ru/lp/lk/testlk.php">Личный кабинет</a></li>
     <li><a href="https://kod1197.ru/lp/upload/index.php">Загрузить изображение</a></li>

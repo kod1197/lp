@@ -2,9 +2,13 @@
 require_once "../cnf/includes.php";
 
 if(isset($_POST['dobavit'])){
-    echo '<pre>';
-    var_dump($_FILES);
-    echo '</pre>';
+    $i = 0;
+    foreach ($_FILES['img'] as $f['img']){
+        echo '<pre>';
+        print_r($_FILES['img']);
+        echo '</pre>';
+    }
+
 }
 
 ?>
@@ -14,7 +18,7 @@ if(isset($_POST['dobavit'])){
 </head>
 <body>
     <form enctype="multipart/form-data" method="post">
-        <input type="file" id="cur" name="img[]" multiple="multiple">
+        <input type="file" id="cur" multiple name="img[]">
         <br>
         <input type="submit" name="dobavit" value="Отправить файлы">
     </form>

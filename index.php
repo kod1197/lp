@@ -103,7 +103,7 @@ require_once "cnf/supermodal.php";
                                         echo 'Вы искали: <a style="text-decoration:none; color:#F9BF3B" href="https://kod1197.ru/lp/search.php?searchStr='.$history.'">'.$history.'</a>';
                                     }
                                 ?>
-                            </span>
+                            </span><br>
                         </form>
                         <!-- ===== Call To Action Button ===== -->
                         <!--<div id="call_to_action-5" class="distance-button">
@@ -353,5 +353,22 @@ foreach ($js as $js_file){
     echo $js_file;
 }
 ?>
+<script src="js/superplaceholder.js"></script>
+<script type="text/javascript">
+    superplaceholder({
+        el: topic_title,
+        sentences: [ 'Введи сюда интересующую тебя тему для поиска' , 'Например: Цветы'],
+        options: {
+            letterDelay: 50,
+            sentenceDelay: 1500,
+            startonfocus: true,
+            loop: true,
+            shuffle: false,
+            showCursor: true,
+            cursor: '|'
+        }
+    });
+</script>
+
 </body>
 </html>

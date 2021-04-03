@@ -4,6 +4,7 @@ require_once "cnf/vars.php";
 require_once "cnf/includes.php";
 require_once "cnf/supermodal.php";
 require_once "cnf/db.php";
+include 'Paginator.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,14 +28,15 @@ require_once "cnf/db.php";
 
     <link rel="stylesheet" href="https://kod1197.ru/lp/css/style.css">
     <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/hover.css">
 
 </head>
 
 <body>
 <!-- ===== preloader ===== -->
-<div class="preloaders">
-    <div class="preloaders-gif">&nbsp;</div>
-</div>
+<!--<div class="preloaders">-->
+<!--    <div class="preloaders-gif">&nbsp;</div>-->
+<!--</div>-->
 <button class="top-btn"><?= $top_btn_content ?></button>
 
 <!-- ===== Header ===== -->
@@ -80,24 +82,44 @@ require_once "cnf/db.php";
             </div>
 </header>
 <!-- ===== Welcome ===== -->
-<section class="main-content">
-    <div class="container-fluid">
+<section class="section-about bgc-one" id="section-about">
+    <div class="container">
 
-        <div class="content">
+        <div>
             <?php
 
             $zprs = $_GET["searchStr"];
             $_SESSION['kod1197']['search_history'] = $zprs;
+            $connect = mysqli_connect('localhost', 'root', '311297gamer', 'lp');
+            $total = "SELECT COUNT(*) FROM img where name like '%" . $zprs . "%' order by name ";
+            $totalItems = mysqli_query($connect,$total);
+            $itemsPerPage = 9;
+            $currentPage = 1;
+            $urlPattern = '/lp/search.php?searchStr="'.$zprs.'"/(:num)';
+
+            $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+
+
             //	$query = "select * from img where id in ((select idImg from etot where idTag in((select id from tag where name like '%".$zprs."%'))))";
             $query = "SELECT * FROM img where name like '%" . $zprs . "%' order by name ";
+            /*$query = "SELECT * FROM img where MATCH(name,description) AGAINST( '$term' )";*/
             $results = mysqli_query($connect, $query);
 
             while ($row = $results->fetch_assoc()) {
-                echo '<div id=image>';
-                echo '<a href="upload/image.php?id=' . $row["id"] . '&tag=' . $zprs . '"><img class="imgBlock" height="200" width="200" src="upload/img/' . $row["img"] . '"></a>';
-                echo '</div>';
+//                echo '<div id=image>';
+//                echo '<a href="upload/image.php?id=' . $row["id"] . '&tag=' . $zprs . '"><img class="imgBlock" height="200" width="200" src="upload/img/' . $row["img"] . '"></a>';
+//                echo '</div>';
+
+               echo '<div class="view second-effect"> ';
+               echo '<img src="upload/img/'. $row["img"] .'" class="imgBlock">';
+               echo '<div class="mask">';
+               echo '<a href="upload/image.php?id=' . $row["id"] . '&tag=' . $zprs . '" class="info">Полное изображение</a>';
+               echo '</div>';
+               echo '</div>';
 
             }
+
+            echo $paginator;
             ?>
         </div>
 

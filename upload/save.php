@@ -31,7 +31,7 @@ switch( $file_extension )
 $paid = $_GET['price'];
 if(isset($paid)){
     
-/* Отнимаем деньги у покупателя */
+/* Снимаем деньги у покупателя */
     $user = R::findOne('users', 'id = ?', array($_SESSION['kod1197']['id']));
     if($user->balance == 0){
         die('При нулевом балансе нельзя купить что либо');
