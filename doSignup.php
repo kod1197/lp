@@ -1,4 +1,6 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
 require "cnf/db_rb.php";
 require "cnf/vars.php";
 require "cnf/mailer/PHPMailerAutoload.php";
@@ -63,27 +65,31 @@ if (empty($errors)) {
     $user->secret = $data['secret'];
     $user->email = $data['email'];
     $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+    echo R::dump($user);
     R::store($user);
 
-    $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->CharSet = "utf-8";
-    $mail->SMTPDebug = 0;
-    $mail->Debugoutput = 'html';
-    $mail->Host = "smtp.yandex.ru";
-    $mail->Port = 465;
-    $mail->SMTPSecure = 'ssl';
-    $mail->SMTPAuth = true;
-    $mail->Username = "admin@kod1197.ru";
-    $mail->Password = "311297gamer";
-    $mail->setFrom('admin@kod1197.ru', 'kod1197.ru');
-    $mail->addAddress($data['email'], $data['email']);
-    $mail->Subject = 'Активация акканта';
-    $url = 'https://kod1197.ru/lp/confirmer.php?login=' . $data["login"] . '&hash=' . md5($data["login"]);
-    $mail->Body = 'Ваша ссылка для подтверждения аккаунта: ' . $url;
-    $mail->send();
+
+
+     $mail = new PHPMailer;
+     $mail->isSMTP();
+     $mail->CharSet = "utf-8";
+     $mail->SMTPDebug = 0;
+     $mail->Debugoutput = 'html';
+     $mail->Host = "smtp.mail.ru";
+     $mail->Port = 465;
+     $mail->SMTPSecure = 'ssl';
+     $mail->SMTPAuth = true;
+     $mail->Username = "admin@kod1197.ru";
+     $mail->Password = "311297ganer";
+     $mail->setFrom('admin@kod1197.ru', 'kod1197.ru');
+     $mail->addAddress($data['email'], $data['email']);
+     $mail->Subject = 'Активация акканта';
+     $url = 'https://kod1197.ru/lp/confirmer.php?login=' . $data["login"] . '&hash=' . md5($data["login"]);
+     $mail->Body = 'Ваша ссылка для подтверждения аккаунта: ' . $url;
+     $mail->send();
 
 } else {
+
     echo array_shift($errors);
 }
 ?>
