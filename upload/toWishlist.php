@@ -12,7 +12,7 @@
     $arr = $res->fetch_assoc();
     
     if(empty($arr)){
-       $query = "INSERT INTO `9092902629`.`favorites` (`idUsr`, `idImg`) VALUES ('$idUsr', '$idImg')";
+       $query = "INSERT INTO `lp`.`favorites` (`idUsr`, `idImg`) VALUES ('$idUsr', '$idImg')";
        mysqli_query($connect, $query);
     }
     else{
