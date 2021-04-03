@@ -24,8 +24,9 @@ $.ajax({
 		url: "ldHistory.php",
 		dataType:"text",
 		data: 'login=' + sessionName,
-		error: function () {	
-			alert( "Не смог" );
+		error: function (response) {
+			alert("Не смог");
+			console.log(response);
 		},
 		success: function (response) {
 			$('#modal-body2').html(response);

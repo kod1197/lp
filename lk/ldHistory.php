@@ -1,5 +1,5 @@
 <?php
-    require "../cnf/db.php";
+    require '../cnf/db.php';
     session_start();
 	$author = $_POST['login'];
 	$query = "select * from img where author='".$author."'";
