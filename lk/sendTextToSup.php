@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     require  "../cnf/mailer/PHPMailerAutoload.php";
     require "../cnf/db_rb.php";
@@ -10,7 +11,7 @@
 
     $textToSup = R::dispense('support');
     $textToSup->text = $text;
-    $textToSup->conv = $id;
+//    $textToSup->conv = $id;
     $textToSup->header = $header;
     $textToSup->senderId = $_SESSION['kod1197']['id'];
     $textToSup->date = date("d.m.y");
@@ -28,12 +29,12 @@
     $mail->CharSet = "utf-8";
     $mail->SMTPDebug = 0;
     $mail->Debugoutput = 'html';
-    $mail->Host = "smtp.yandex.ru";
+    $mail->Host = "smtp.mail.ru";
     $mail->Port = 465;
     $mail->SMTPSecure = 'ssl';
     $mail->SMTPAuth = true;
     $mail->Username = "admin@kod1197.ru";
-    $mail->Password = "311297gamer";
+    $mail->Password = "311297ganer";
     $mail->setFrom('admin@kod1197.ru', 'kod1197.ru');
     $mail->addAddress('kibirev68@yandex.ru', 'support');
     $mail->Subject = 'Новая заявка в тех поддержке';
