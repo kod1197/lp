@@ -1,11 +1,12 @@
 <?php
 /*== Подключение к бд, старт сессии ==*/
 require '../cnf/db_rb.php';
+include 'LImageHandler.php';
 /*== Проверка на залогиненного пользователя ==*/
 if (isset($_SESSION['kod1197']['login'])) {
     /*== Получаем расширение файла ==*/
     $test = $_FILES['img']['name'];
-    $ext = substr(strrchr($test, '.'), 1);
+    $ext = strtolower(substr(strrchr($test, '.'), 1));
     /*== Проверка на разрешенное расширение файла ==*/
     if ($ext == "jpg" or $ext == "jpeg" or $ext == "png" or $ext == "PNG") {
         /*== Меняем название изображения на хэш ==*/
@@ -16,6 +17,7 @@ if (isset($_SESSION['kod1197']['login'])) {
         $uploadfile = $uploaddir . $imgHash;
         /*== Загружаем файл, проверяем есть ли файл вообще ==*/
         if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile)) {
+            copy($uploadfile,'marked/' . $imgHash);
             /*== Получаем тег из выпадающего списка ==*/
             $idTag = $_POST['tagger'];
             /*== Тег из списка должен быть обязательно выбран ==*/
@@ -36,15 +38,28 @@ if (isset($_SESSION['kod1197']['login'])) {
                 /*== Получаем id текущей записи для создания связи ==*/
                 $idImg = R::getInsertID();
                 /*== Генерируем запрос для создания связи ==*/
-                $qr = "INSERT INTO `9092902629`.`etot` (`id`, `idImg`, `idTag`) VALUES (NULL, $idImg, $idTag)";
+                $qr = "INSERT INTO `lp`.`etot` (`id`, `idImg`, `idTag`) VALUES (NULL, $idImg, $idTag)";
                 /*== Выполнение запроса к базе данных через RedBean php ==*/
                 R::exec($qr);
+
+                /*== Watermark через imagick ==*/
+
+                $image = new Imagick('marked/' . $imgHash);
+                $draw = new ImagickDraw();
+                $pixel = new ImagickPixel();
+                $draw->setFillColor('green');
+                $draw->setFont('11723.ttf');
+                $draw->setFontSize('30');
+                $image->annotateImage($draw, 10, 45,0,'KOD1197.RU');
+                $image->setFormat('png');
+                $image->writeImage('marked/' . $imgHash);
+
                 /*== Переадресация на ту же страницу, для обновления форма ==*/
                 header("Location: https://kod1197.ru/lp/upload/index.php");
             }
         } /*== Если файла нет, выводим ошибку ==*/
         else {
-            echo "Возможная атака с помощью файловой загрузки!\n";
+           echo "Возможная атака с помощью файловой загрузки!\n";
         }
     } /*== Если проверка не пройдена - выводим ошибку ==*/
     else {
