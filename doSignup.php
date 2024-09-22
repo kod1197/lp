@@ -80,7 +80,7 @@ if (empty($errors)) {
      $mail->SMTPSecure = 'ssl';
      $mail->SMTPAuth = true;
      $mail->Username = "admin@kod1197.ru";
-     $mail->Password = "311297ganer";
+     $mail->Password = "*****";
      $mail->setFrom('admin@kod1197.ru', 'kod1197.ru');
      $mail->addAddress($data['email'], $data['email']);
      $mail->Subject = 'Активация акканта';
